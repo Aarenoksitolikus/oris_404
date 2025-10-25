@@ -66,7 +66,7 @@ public class DataClass {
         // это костыль, должно работать и без этого, НЕОБХОДИМО РАЗОБРАТЬСЯ!!!
         Class.forName("org.postgresql.Driver");
         return DriverManager.getConnection("jdbc:postgresql://localhost:5432/test",
-                "postgres", "qwerty007");
+                "postgres", "Fadc766e!");
     }
 
     private UserEntity convertFromResultSet(ResultSet rs) throws SQLException {
