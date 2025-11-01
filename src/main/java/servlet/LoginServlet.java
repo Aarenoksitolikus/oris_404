@@ -2,6 +2,10 @@ package servlet;
 
 import dao.DataClass;
 import entity.UserEntity;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import service.UserService;
 import service.UserServiceImpl;
 
@@ -23,7 +27,8 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     public void init() {
-        this.userService = new UserServiceImpl(new DataClass());
+        this.userService = (UserService)
+                getServletContext().getAttribute("userService");
     }
 
     @Override

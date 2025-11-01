@@ -10,16 +10,15 @@ import java.sql.*;
  */
 public class DataClass {
     private static final String GET_USER_BY_CREDS = "select * from usr where username = ? and hash_password = ?";
+    private static final String SAVE_NEW_USER = "insert into usr values (?, ?)";
 
     public void test(String username) {
         try (PreparedStatement preparedStatement =
                      getConnection().prepareStatement("select * from usr where username = ?")) {
             preparedStatement.setString(1, username);
             preparedStatement.execute();
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new IllegalStateException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -46,10 +45,14 @@ public class DataClass {
         }
     }
 
-    public void saveNewUser() throws SQLException {
-        getStatement().executeUpdate("""
-                insert into usr (username, hash_password) 
-                values ('Maxim', '1234');""");
+    public UserEntity saveNewUser(UserEntity entity) {
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(SAVE_NEW_USER)) {
+            preparedStatement.setString(1, entity.getUsername());
+            preparedStatement.setString(2, entity.getHashPassword());
+            return convertFromResultSet(preparedStatement.executeQuery());
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     public void updateUser(String username) throws SQLException {

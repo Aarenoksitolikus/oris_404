@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.util.TimeZone;
 
 /**
  * Этот фильтр перехватывает все запросы ("/*") в приложение
@@ -24,6 +27,7 @@ import java.io.IOException;
  */
 @WebFilter("/*")
 public class AuthorisationFilter extends HttpFilter {
+
     @Override
     public void doFilter(ServletRequest req,
                          ServletResponse resp,
@@ -32,7 +36,8 @@ public class AuthorisationFilter extends HttpFilter {
 
         if (requestURI.equals("/index")
                 || requestURI.equals("/registration")
-                || requestURI.equals("/login")) {
+                || requestURI.equals("/login")
+                || requestURI.equals("/logout")) {
             chain.doFilter(req, resp);
         } else {
             HttpSession session = ((HttpServletRequest) req).getSession(false);
