@@ -13,6 +13,6 @@ public class TestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("list", List.of(1L, 2L));
-        req.getRequestDispatcher("/src/main/webapp/jsp/test.jsp").forward(req, resp);
+        req.getRequestDispatcher("//jsp/test.jsp").forward(req, resp);
     }
 }

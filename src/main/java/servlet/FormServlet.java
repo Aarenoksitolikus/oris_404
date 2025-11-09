@@ -11,6 +11,6 @@ import java.io.IOException;
 public class FormServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("src/main/webapp/jsp/form.jsp").forward(req, resp);
+        req.getRequestDispatcher("/jsp/form.jsp").forward(req, resp);
     }
 }
